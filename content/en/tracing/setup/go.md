@@ -80,16 +80,16 @@ The Go tracer includes support for the following data stores and libraries.
 | [Redis (redigo)][30]    | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/garyburd/redigo][31]                     |
 | [SQL][32]               | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/database/sql][33]                        |
 | [SQLx][34]              | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/jmoiron/sqlx][35]                        |
-| [MongoDB][36]           | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/go.mongodb.org/mongo-driver/mongo][38]   |
-| [BuntDB][39]            | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/tidwall/buntdb][40]                      |
-| [LevelDB][41]           | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/syndtr/goleveldb/leveldb][42]            |
-| [miekg/dns][43]         | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/miekg/dns][44]                           |
-| [Kafka (confluent)][45] | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/confluentinc/confluent-kafka-go][46]     |
-| [Kafka (sarama)][47]    | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/Shopify/sarama][48]                      |
-| [Google API][49]        | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/google.golang.org/api][50]               |
-| [go-restful][51]        | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/emicklei/go-restful][52]                 |
+| [MongoDB][36]           | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/go.mongodb.org/mongo-driver/mongo][37]   |
+| [BuntDB][38]            | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/tidwall/buntdb][39]                      |
+| [LevelDB][40]           | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/syndtr/goleveldb/leveldb][41]            |
+| [miekg/dns][42]         | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/miekg/dns][43]                           |
+| [Kafka (confluent)][44] | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/confluentinc/confluent-kafka-go][45]     |
+| [Kafka (sarama)][46]    | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/Shopify/sarama][47]                      |
+| [Google API][48]        | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/google.golang.org/api][49]               |
+| [go-restful][50]        | Fully Supported     | [gopkg.in/DataDog/dd-trace-go.v1/contrib/emicklei/go-restful][51]                 |
 
-**Note**: The [integrations documentation][53] provides a detailed overview of the supported packages and their APIs, along with usage examples.
+**Note**: The [integrations documentation][52] provides a detailed overview of the supported packages and their APIs, along with usage examples.
 
 Packages must be imported, i.e.:
 
@@ -134,7 +134,7 @@ func main() {
 }
 ```
 
-For more tracer settings, see available options in the [configuration documentation][54].
+For more tracer settings, see available options in the [configuration documentation][53].
 
 ## Change Agent Hostname
 
@@ -162,6 +162,28 @@ func main() {
 }
 
 ```
+
+## Configure APM Environment Name
+
+Optionally configure the [APM environment name][54] when starting the tracer with [WithEnv][55].
+When configured, the tracer attaches an `env` tag to all traces.
+If you have configured an environment name [in the agent][56], the agent configuration is overridden.
+
+```go
+package main
+
+import (
+    "os"
+
+    "gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
+)
+
+func main() {
+    tracer.Start(tracer.WithEnv("<ENVIRONMENT>"))
+    defer tracer.Stop()
+}
+```
+
 
 ## Further Reading
 
@@ -203,21 +225,23 @@ func main() {
 [34]: https://github.com/jmoiron/sqlx
 [35]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/jmoiron/sqlx
 [36]: https://github.com/mongodb/mongo-go-driver
-[37]: https://github.com/mongodb/mongo-go-driver/releases/tag/v0.2.0
-[38]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/go.mongodb.org/mongo-driver/mongo
-[39]: https://github.com/tidwall/buntdb
-[40]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/tidwall/buntdb
-[41]: https://github.com/syndtr/goleveldb
-[42]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/syndtr/goleveldb/leveldb
-[43]: https://github.com/miekg/dns
-[44]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/miekg/dns
-[45]: https://github.com/confluentinc/confluent-kafka-go
-[46]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/confluentinc/confluent-kafka-go
-[47]: https://github.com/Shopify/sarama
-[48]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/Shopify/sarama
-[49]: https://github.com/googleapis/google-api-go-client
-[50]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/google.golang.org/api
-[51]: https://github.com/emicklei/go-restful
-[52]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/emicklei/go-restful
-[53]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib
-[54]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer#StartOption
+[37]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/go.mongodb.org/mongo-driver/mongo
+[38]: https://github.com/tidwall/buntdb
+[39]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/tidwall/buntdb
+[40]: https://github.com/syndtr/goleveldb
+[41]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/syndtr/goleveldb/leveldb
+[42]: https://github.com/miekg/dns
+[43]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/miekg/dns
+[44]: https://github.com/confluentinc/confluent-kafka-go
+[45]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/confluentinc/confluent-kafka-go
+[46]: https://github.com/Shopify/sarama
+[47]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/Shopify/sarama
+[48]: https://github.com/googleapis/google-api-go-client
+[49]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/google.golang.org/api
+[50]: https://github.com/emicklei/go-restful
+[51]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib/emicklei/go-restful
+[52]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib
+[53]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer#StartOption
+[54]: /tracing/advanced/setting_primary_tags_to_scope/#environment
+[55]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer#WithEnv
+[56]: /getting_started/tracing/#environment-name
