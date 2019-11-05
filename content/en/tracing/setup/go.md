@@ -165,9 +165,7 @@ func main() {
 
 ## Configure APM Environment Name
 
-Optionally configure the [APM environment name][54] when starting the tracer with [WithEnv][55].
-When configured, the tracer attaches an `env` tag to all traces.
-If you have configured an environment name [in the agent][56], the agent configuration is overridden.
+The [APM environment name][54] may be configured [in the agent][55] or using the [WithEnv][56] start option of the tracer.
 
 ```go
 package main
@@ -181,6 +179,8 @@ import (
 func main() {
     tracer.Start(tracer.WithEnv("<ENVIRONMENT>"))
     defer tracer.Stop()
+
+    // ...
 }
 ```
 
@@ -243,5 +243,5 @@ func main() {
 [52]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/contrib
 [53]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer#StartOption
 [54]: /tracing/advanced/setting_primary_tags_to_scope/#environment
-[55]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer#WithEnv
-[56]: /getting_started/tracing/#environment-name
+[55]: /getting_started/tracing/#environment-name
+[56]: https://godoc.org/gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer#WithEnv
