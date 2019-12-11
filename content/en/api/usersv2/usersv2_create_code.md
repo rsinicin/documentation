@@ -1,0 +1,18 @@
+---
+title: Create user
+type: apicode
+order: 36.1
+external_redirect: /api/#create-user-v2
+---
+
+**SIGNATURE**:
+
+`POST /v2/users`
+
+**EXAMPLE REQUEST**:
+
+{{< code-snippets basename="api-users-create" >}}
+
+**EXAMPLE RESPONSE**:
+
+{{< code-snippets basename="result.api-users-create" >}}
