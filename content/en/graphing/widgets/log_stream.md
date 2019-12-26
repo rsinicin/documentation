@@ -49,6 +49,7 @@ LOG_STREAM_SCHEMA = {
     "properties": {
         "type": {"enum": ["log_stream"]},
         "logset": {"type": "string"},
+        "indexes": {"type": "array", "items": {"type": "string"}},
         "query": {"type": "string"},
         "columns": {"type": "array", "items": {"type": "string"}},
         "title": {"type": "string"},
@@ -64,7 +65,8 @@ LOG_STREAM_SCHEMA = {
 | Parameter  | Type            | Required | Description                                                                                                                                                  |
 | ------     | -----           | -----    | -----                                                                                                                                                        |
 | `type`| string|yes|Type of the widget, for the log stream widget use `log_stream`|
-|`logset`|string|no|The id of the index to query in the stream|
+|`logset`|string|no|Deprecated: Use 'indexes' instead. The id of the index to query in the stream|
+|`indexes`|string|no|Array of index names to query in the stream|
 |`query`|string|no|Query to filter the log stream with|
 |`columns`|array|no|Which columns to display on the widget|
 |`title`|string|no|Title of the widget|
