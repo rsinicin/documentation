@@ -146,8 +146,8 @@ Exportez votre analyse [App Analytics][6] depuis la recherche de traces ou crée
 
 {{< partial name="whats-next/whats-next.html" >}}
 
-[1]: /fr/tracing/advanced/search/#facets
-[2]: /fr/tracing/advanced/search/#measures
+[1]: /fr/tracing/search/#facets
+[2]: /fr/tracing/search/#measures
 [3]: /fr/tracing/visualization/#trace
 [4]: /fr/monitors/monitor_types/apm
 [5]: /fr/graphing/dashboards/timeboard
